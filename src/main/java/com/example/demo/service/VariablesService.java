@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 
@@ -47,6 +47,27 @@ public class VariablesService implements IVariablesService {
 		valores.add("PWD:" + myVar);
 		return valores;
 
+	}
+
+	@Override
+	public List<String> parametros() {
+		List<String> valores = new ArrayList<String>();
+		Properties p = new Properties();
+		String pathProperties = System.getenv().get("PATH_CONF");
+		try {
+			p.load(new FileReader(pathProperties + "/app.properties"));
+			Enumeration<Object> keys = p.keys();
+
+			while (keys.hasMoreElements()){
+			   Object key = keys.nextElement();
+			   valores.add(key + " = "+ p.get(key));
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return valores;
 	}
 
 }

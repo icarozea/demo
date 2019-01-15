@@ -22,5 +22,10 @@ public class VariablesController {
 	public List<String> callVariables(){
 		return variableService.valorVariablesEntorno();
 	}
+	
+	@GetMapping("/parametros")
+	public List<String> callParametros(){
+		return variableService.parametros();
+	}
 
 }
