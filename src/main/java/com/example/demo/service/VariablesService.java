@@ -53,7 +53,7 @@ public class VariablesService implements IVariablesService {
 	public List<String> parametros() {
 		List<String> valores = new ArrayList<String>();
 		Properties p = new Properties();
-		String pathProperties = System.getenv().get("PATH_CONF");
+		String pathProperties = System.getenv().get("PATH_CONFIGURACION");
 		try {
 			p.load(new FileReader(pathProperties + "/app.properties"));
 			Enumeration<Object> keys = p.keys();
