@@ -8,42 +8,39 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 
 @Service
 public class VariablesService implements IVariablesService {
 
-
-
-	private void ejemploProperties() {
-		Properties p = new Properties();
-		String pathProperties = System.getenv().get("PATH_CONF");
-		try {
-			p.load(new FileReader(pathProperties + "/app.properties"));
-			System.out.println("[OZEA] valor3=" + p.getProperty("valor3"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		String myVar = System.getenv().get("USER");
-		System.out.println("[OZEA] USER=" + myVar);
-		System.out.println("[OZEA] USER=${USER}");
-		System.out.println("[OZEA] PATH_CONF=${PATH_CONF}");
-
-	}
+	@Value("${com.bancodebogota.ptdo.parametro.canal}")
+	private String canal;
+	
+	@Value("${name.person}")
+	private String name;
+	
+	@Value("${otra.variable}")
+	private String otra;
+	
 
 	public List<String> valorVariablesEntorno() {
-
+		
+		System.out.println("Prueba VariablesService");
+		System.out.println("Valor canal: "+ this.canal);
+		System.out.println("Valor name: "+ this.name);
+		System.out.println("Valor otra: "+ this.otra);
+		
 		List<String> valores = new ArrayList<String>();
 		Properties p = new Properties();
-		String pathProperties = System.getenv().get("PATH_CONF");
+		String pathProperties = System.getenv().get("PATH_CONFIGURACION");
 
 		String myVar = System.getenv().get("PWD");
 
-		valores.add("PATH_CONF:" + pathProperties);
+		valores.add("PATH_CONFIGURACION:" + pathProperties);
 		valores.add("PWD:" + myVar);
 		return valores;
 
