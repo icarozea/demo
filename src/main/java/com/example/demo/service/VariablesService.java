@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.Variable;
+
 
 @Service
 public class VariablesService implements IVariablesService {
@@ -27,21 +29,21 @@ public class VariablesService implements IVariablesService {
 	private String otra;
 	
 
-	public List<String> valorVariablesEntorno() {
+	public List<Variable> valorVariablesEntorno() {
 		
 		System.out.println("Prueba VariablesService");
 		System.out.println("Valor canal: "+ this.canal);
 		System.out.println("Valor name: "+ this.name);
 		System.out.println("Valor otra: "+ this.otra);
 		
-		List<String> valores = new ArrayList<String>();
+		List<Variable> valores = new ArrayList<Variable>();
 		Properties p = new Properties();
 		String pathProperties = System.getenv().get("PATH_CONFIGURACION");
 
 		String myVar = System.getenv().get("PWD");
-
-		valores.add("PATH_CONFIGURACION:" + pathProperties);
-		valores.add("PWD:" + myVar);
+		
+		valores.add(new Variable("PATH_CONFIGURACION", pathProperties.toString()));
+		valores.add(new Variable("PWD:", myVar));
 		return valores;
 
 	}
